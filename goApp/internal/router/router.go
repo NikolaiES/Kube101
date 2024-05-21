@@ -8,4 +8,7 @@ import (
 func SetupRoutes() {
 
 	http.HandleFunc("GET /secret", handlers.HandleSecret)
+	http.HandleFunc("GET /data", handlers.HandleLorem)
+	http.HandleFunc("GET /healthz", handlers.ReportHealth)
+	http.HandleFunc("POST /healthz", handlers.SetHealth)
 }
