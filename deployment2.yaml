@@ -15,12 +15,27 @@ spec:
         app: kube101
     spec:
       containers:
-      - image: nikolaies/kube101:v1
+      - image: nikolaies/kube101:v2
         name: kube101
         env:
         - name: PASSWORD
-          value: "pass"
+          valueFrom:
+              secretKeyRef:
+                name: kube101-secret
+                key: password
         - name: POD_NAME
           valueFrom:
               fieldRef:
                 fieldPath: metadata.name
+        volumeMounts:
+        - name: file-volume
+          mountPath: "/root/goApp/files/custom.config"
+          subPath: "custom.config"
+          readOnly: true
+    volumes:
+      - name: file-volume
+        configMap:
+          name: kube101-cm
+          items:
+            - key: custom.config
+              path: custom.config

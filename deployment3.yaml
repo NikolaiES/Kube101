@@ -15,8 +15,14 @@ spec:
         app: kube101
     spec:
       containers:
-      - image: nikolaies/kube101:v1
+      - image: nikolaies/kube101:v2
         name: kube101
+        resources:
+          cpu:
+            request: 50m
+          memory:
+            request: 200Mi
+            limit: 500Mi
         env:
         - name: PASSWORD
           valueFrom:
