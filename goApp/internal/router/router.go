@@ -11,4 +11,5 @@ func SetupRoutes() {
 	http.HandleFunc("GET /data", handlers.HandleLorem)
 	http.HandleFunc("GET /healthz", handlers.ReportHealth)
 	http.HandleFunc("POST /healthz", handlers.SetHealth)
+	http.HandleFunc("GET /spacebarheating", handlers.SpaceBarHeating)
 }

@@ -1,7 +1,9 @@
 package types
 
+import "html/template"
+
 type TmplData struct {
 	Title   string
-	Data    any
+	Data    template.HTML
 	PodName string
 }
