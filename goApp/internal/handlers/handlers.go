@@ -34,6 +34,7 @@ func HandleSecret(w http.ResponseWriter, r *http.Request) {
 		PodName: podName,
 	}
 
+	w.Header().Add("Connection", "close")
 	err = tmpl.Execute(w, data)
 	if err != nil {
 		fmt.Fprintf(w, "Could not find parse gohtml\nERROR: %s", err.Error())
@@ -64,6 +65,7 @@ func HandleLorem(w http.ResponseWriter, r *http.Request) {
 		PodName: podName,
 	}
 
+	w.Header().Add("Connection", "close")
 	err = tmpl.Execute(w, data)
 	if err != nil {
 		fmt.Fprintf(w, "Could not find parse gohtml\nERROR: %s", err.Error())
@@ -76,6 +78,7 @@ func ReportHealth(w http.ResponseWriter, r *http.Request) {
 	if name == "" {
 		name = "UNDEFINED"
 	}
+	w.Header().Add("Connection", "close")
 	health := os.Getenv("HEALTH")
 	if health != "DEAD" {
 		w.WriteHeader(200)
@@ -92,14 +95,19 @@ func SetHealth(w http.ResponseWriter, r *http.Request) {
 	authHeader := r.Header.Get("Authorization")
 	if authHeader != pass {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		w.WriteHeader(500)
 		return
 	}
 
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		fmt.Print("Could not read Body")
+		w.WriteHeader(500)
+		return
 	}
 	os.Setenv("HEALTH", string(body))
+	w.Header().Add("Connection", "close")
+	w.WriteHeader(200)
 }
 
 func SpaceBarHeating(w http.ResponseWriter, r *http.Request) {
@@ -119,6 +127,7 @@ func SpaceBarHeating(w http.ResponseWriter, r *http.Request) {
 		Data:    template.HTML("Don't break my workflow <a href='https://xkcd.com/1172/'>obligatory xkcd</a>"),
 		PodName: podName,
 	}
+	w.Header().Add("Connection", "close")
 	err = tmpl.Execute(w, data)
 	if err != nil {
 		fmt.Fprintf(w, "Could not find parse gohtml\nERROR: %s", err.Error())
