@@ -6,7 +6,7 @@ metadata:
     app: kube101
 spec:
   containers:
-  - name: my-container
+  - name: kube101
     image: nikolaies/kube101:v1
     ports:
     - containerPort: 8080
@@ -15,4 +15,3 @@ spec:
       valueFrom:
           fieldRef:
             fieldPath: metadata.name
-

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kube101
+  name: kube101
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kube101
+  template:
+    metadata:
+      labels:
+        app: kube101
+    spec:
+      containers:
+      - image: nikolaies/kube101:v1
+        name: kube101
+        env:
+        - name: PASSWORD
+          value: "pass"
+        - name: POD_NAME
+          valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
