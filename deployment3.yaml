@@ -26,22 +26,39 @@ spec:
         env:
         - name: PASSWORD
           valueFrom:
-              secretKeyRef:
-                name: kube101-secret
-                key: password
+            secretKeyRef:
+              name: kube101-secret
+              key: password
         - name: POD_NAME
           valueFrom:
-              fieldRef:
-                fieldPath: metadata.name
+            fieldRef:
+              fieldPath: metadata.name
         volumeMounts:
         - name: file-volume
           mountPath: "/root/files/custom.config"
-          subPath: "custom.config"
+          subPath: custom.config
           readOnly: true
-    volumes:
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 1
+          successThreshold: 1
+      volumes:
       - name: file-volume
         configMap:
           name: kube101-cm
           items:
             - key: custom.config
               path: custom.config
+

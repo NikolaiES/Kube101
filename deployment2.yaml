@@ -17,6 +17,12 @@ spec:
       containers:
       - image: nikolaies/kube101:v3
         name: kube101
+        resources:
+          requests:
+            cpu: 50m
+            memory: 200Mi
+          limits:
+            memory: 500Mi
         env:
         - name: PASSWORD
           valueFrom:
@@ -32,7 +38,7 @@ spec:
           mountPath: "/root/files/custom.config"
           subPath: "custom.config"
           readOnly: true
-    volumes:
+      volumes:
       - name: file-volume
         configMap:
           name: kube101-cm

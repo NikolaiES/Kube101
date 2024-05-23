@@ -2,9 +2,9 @@
 2. Hva er Kubernetes
 3. Hva er applikasjonen jeg har laget
 4. Lage en pod pod.yaml
-5. Lage en deployment deployment1.yaml
-6. Secrets configmaps og volumes deployment2.yaml secret.yaml configmap.yaml
-7. services nodeport.yaml
+5. services nodeport.yaml
+6. Secrets configmaps og volumes pod2.yaml secret.yaml configmap.yaml
+7. Flere replikaer deployment1.yaml
 8. Health checks deployment4.yaml
 9. ressurser cpu og ram deployment3.yaml
 10. Horizontal auto scaler scaler.yaml

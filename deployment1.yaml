@@ -18,7 +18,24 @@ spec:
       - image: nikolaies/kube101:v3
         name: kube101
         env:
+        - name: PASSWORD
+          valueFrom:
+              secretKeyRef:
+                name: kube101-secret
+                key: password
         - name: POD_NAME
           valueFrom:
               fieldRef:
                 fieldPath: metadata.name
+        volumeMounts:
+        - name: file-volume
+          mountPath: "/root/files/custom.config"
+          subPath: "custom.config"
+          readOnly: true
+      volumes:
+      - name: file-volume
+        configMap:
+          name: kube101-cm
+          items:
+            - key: custom.config
+              path: custom.config
