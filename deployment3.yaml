@@ -15,7 +15,7 @@ spec:
         app: kube101
     spec:
       containers:
-      - image: nikolaies/kube101:v3
+      - image: nikolaies/kube101:v4
         name: kube101
         resources:
           requests:
