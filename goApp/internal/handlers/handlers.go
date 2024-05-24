@@ -139,10 +139,10 @@ func SpaceBarHeating(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < 2; i++ {
 		go func() {
 			end := time.Now().Add(duration)
+			root := 0
 			for time.Now().Before(end) {
-				for i := 0; i < 1000000; i++ {
-					_ = math.Sqrt(float64(i))
-				}
+				_ = math.Sqrt(float64(root))
+				root++
 			}
 		}()
 	}
