@@ -8,3 +8,12 @@
 8. Health checks deployment4.yaml
 9. ressurser cpu og ram deployment3.yaml
 10. Horizontal auto scaler scaler.yaml
+
+/secret
+/data
+/healthz
+/healthz POST
+authentication pass
+curl -X POST -H "Authorization: pass" -d "DEAD" http://192.168.0.81:30001/healthz
+curl -X POST -H "Authorization: pass" -d "ok" http://192.168.0.81:30001/healthz
+/spacebarheating
